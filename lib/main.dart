@@ -6,6 +6,7 @@ import 'package:flutter_ulearning/pages/welcome/welcome.dart';
 
 import 'app_blocs.dart';
 import 'app_events.dart';
+import 'pages/welcome/bloc/welcome_blocs.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,10 +18,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => AppBlocs(),
+      create: (context) => WelcomeBloc(),
       child: ScreenUtilInit(
         builder: (context, child) {
-          return Welcome();
+          return const Welcome();
         },
       ),
     );
