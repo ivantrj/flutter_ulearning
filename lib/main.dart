@@ -9,7 +9,7 @@ import 'app_events.dart';
 import 'pages/welcome/bloc/welcome_blocs.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const MaterialApp(home: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -17,8 +17,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => WelcomeBloc(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => WelcomeBloc(),
+        ),
+        BlocProvider(
+          create: (context) => AppBlocs(),
+        ),
+      ],
       child: ScreenUtilInit(
         builder: (context, child) {
           return const Welcome();
@@ -56,11 +63,13 @@ class MyHomePage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           FloatingActionButton(
+            heroTag: "heroTag1",
             onPressed: () => BlocProvider.of<AppBlocs>(context).add(Increment()),
             tooltip: 'Increment',
             child: const Icon(Icons.add),
           ),
           FloatingActionButton(
+            heroTag: "heroTag2",
             onPressed: (() => BlocProvider.of<AppBlocs>(context).add(Decrement())),
             tooltip: 'Decrement',
             child: const Icon(Icons.remove),
